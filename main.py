@@ -12,7 +12,7 @@ class Slider(QtWidgets.QSlider):
         self.setOrientation(QtCore.Qt.Orientation(False))#вертикальная ореинтация
         self.setFixedSize(QtCore.QSize(100, 200))#размер каждого слайдера
         self.setRange(0, 255)#вилка минимального и миниммального значения. т.к rgb это 8 бит, то 256 значений может быть на канал
-        style = 'QSlider::handle:vertical {\nbackground-color: ' + color + ';' + '\nborder-radius: 10px;' +'\n}'#задача стилей
+        style = 'QSlider::handle:vertical {\nbackground-color: ' + color + ';}'#задача цвета ползунка
         self.setStyleSheet(style)#применение стилей
 
 class Display(QtWidgets.QLabel):
@@ -104,6 +104,26 @@ class MainWindow(QtWidgets.QMainWindow):
 if __name__ == '__main__':
     #запуск приложения
     app = QtWidgets.QApplication(sys.argv)#инициализация контекста приложения
+    #установка глобальных стилей
+    app.setStyleSheet("""
+        QSlider::groove:vertical {
+        background: rgb(232,232,232);
+        border: 1px solid rgb(56,56,56);
+        position: absolute;
+        left: 4px; right: 4px;
+        width: 14px;
+        height: 190px;
+    }
+
+    QSlider::handle:vertical {
+        height: 10px;
+        margin: -5px -5px; 
+        border: 1px solid transparent;
+        width: 10px;
+        height: 20px;
+        border-radius: 10px;
+    }
+    """)
     window = MainWindow()#инициализация окна
     window.show()#показ окна
     app.exec()#запуск цикла приложения
